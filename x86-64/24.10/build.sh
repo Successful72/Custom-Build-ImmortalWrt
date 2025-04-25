@@ -14,7 +14,11 @@ mkdir -p  /home/build/immortalwrt/files/etc/config
 # PACKAGES="$PACKAGES luci-i18n-passwall-zh-cn"
 # PACKAGES="$PACKAGES luci-i18n-homeproxy-zh-cn"
 # PACKAGES="$PACKAGES luci-i18n-samba4-zh-cn"
+# PACKAGES="$PACKAGES luci-app-openclash"
 
+# 增加几个必备组件 方便用户安装iStore
+# PACKAGES="$PACKAGES fdisk"
+# PACKAGES="$PACKAGES script-utils"
 
 # 创建pppoe配置文件 yml传入环境变量ENABLE_PPPOE等 写入配置文件 供99-custom.sh读取
 cat << EOF > /home/build/immortalwrt/files/etc/config/pppoe-settings
@@ -39,11 +43,8 @@ PACKAGES="$PACKAGES luci-app-argon-config"
 PACKAGES="$PACKAGES luci-i18n-argon-config-zh-cn"
 #24.10
 PACKAGES="$PACKAGES luci-i18n-package-manager-zh-cn"
-PACKAGES="$PACKAGES luci-app-openclash"
 PACKAGES="$PACKAGES openssh-sftp-server"
-# 增加几个必备组件 方便用户安装iStore
-PACKAGES="$PACKAGES fdisk"
-PACKAGES="$PACKAGES script-utils"
+
 
 # 判断是否需要编译 Docker 插件
 if [ "$INCLUDE_DOCKER" = "yes" ]; then
