@@ -72,8 +72,10 @@ jobs:
               -e ENABLE_PPPOE=${{ inputs.enable_pppoe }} \
               -e PPPOE_ACCOUNT=${{ inputs.pppoe_account }} \
               -e PPPOE_PASSWORD=${{ inputs.pppoe_password }} \
-              # 在改immortalwrt/imagebuilder的标签号以修改版本
-              immortalwrt/imagebuilder:x86-64-openwrt-24.10.0-rc4 /bin/bash /home/build/immortalwrt/build.sh
+              
+              # 在改immortalwrt/imagebuilder的标签号以修改版本，标签号前往DockerHub查看
+              immortalwrt/imagebuilder:x86-64-openwrt-24.10.1 /bin/bash /home/build/immortalwrt/build.sh
+              
           done
 
       - name: Generate Firmware SHA-256
