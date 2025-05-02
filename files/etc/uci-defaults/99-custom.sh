@@ -36,12 +36,12 @@ fi
 # 无论单网口还是多网口，lan接口都设置为静态IP
 uci set network.lan.proto='static'
 # 请在下面四行修改自定义的IP地址、子网掩码、网关和DNS
-uci set network.lan.ipaddr="${LAN_IP}"    # 使用传入的 LAN_IP
-uci set network.lan.netmask="${LAN_NETMASK}"  # 使用传入的 LAN_NETMASK
-uci set network.lan.gateway="${LAN_GATEWAY}"  # 使用传入的 LAN_GATEWAY
-uci set network.lan.dns="${LAN_DNS}"    # 使用传入的 LAN_DNS
+uci set network.lan.ipaddr='200.56.72.198'
+uci set network.lan.netmask='255.255.255.0'
+uci set network.lan.gateway='200.56.72.248'
+uci set network.lan.dns='114.114.114.114 223.5.5.5'
 # 记录IP信息到日志文件（可选修改）
-echo "Set static IP ${LAN_IP} with DNS ${LAN_DNS} at $(date)" >> $LOGFILE
+echo "Set static IP 192.168.100.1 at $(date)" >> $LOGFILE
 
 # DHCP设置
 # 禁用lan接口的DHCP服务
