@@ -32,14 +32,25 @@ else
 fi
 
 # 网络设置
-if [ "$count" -eq 1 ]; then
-   # 单网口设备 类似于NAS模式 动态获取ip模式 具体ip地址取决于上一级路由器给它分配的ip 也方便后续你使用web页面设置旁路由
-   # 单网口设备 不支持修改ip 不要在此处修改ip 
-   uci set network.lan.proto='dhcp'
-elif [ "$count" -gt 1 ]; then
-   # 多网口设备 支持修改为别的ip地址
-   uci set network.lan.ipaddr='192.168.100.1'
-   echo "set 192.168.100.1 at $(date)" >> $LOGFILE
+# 无论单网口还是多网口，lan接口都设置为静态IP
+uci set network.lan.proto='static'
+# 请在下面三行修改为你想要的IP地址、子网掩码和网关
+uci set network.lan.ipaddr='200.56.72.198'
+uci set network.lan.netmask='255.255.255.0'
+uci set network.lan.gateway='200.56.72.248'
+uci set network.lan.dns='114.114.114.114 223.5.5.5'
+# 记录IP信息到日志文件
+echo "Set static IP 192.168.100.1 at $(date)" >> $LOGFILE
+
+# DHCP设置
+# 禁用lan接口的DHCP服务
+uci set dhcp.lan.ignore='1'
+# 配置本地域名
+uci set dhcp.lan.domain='ycslan'
+
+
+# 如果是多网口设备，额外配置WAN口
+if [ "$count" -gt 1 ]; then
    # 判断是否启用 PPPoE
    echo "print enable_pppoe value=== $enable_pppoe" >> $LOGFILE
    if [ "$enable_pppoe" = "yes" ]; then
@@ -50,17 +61,18 @@ elif [ "$count" -gt 1 ]; then
       uci set network.wan.password=$pppoe_password     
       uci set network.wan.peerdns='1'                  
       uci set network.wan.auto='1' 
-      echo "PPPoE configuration completed successfully." >> $LOGFILE
+      echo "PPPoE配置已成功地完成." >> $LOGFILE
    else
-      echo "PPPoE is not enabled. Skipping configuration." >> $LOGFILE
+      echo "PPPoE未被启用，跳过配置." >> $LOGFILE
    fi
 fi
 
 # 设置所有网口可访问网页终端
-uci delete ttyd.@ttyd[0].interface
+# uci delete ttyd.@ttyd[0].interface
 
 # 设置所有网口可连接 SSH
 uci set dropbear.@dropbear[0].Interface=''
+
 uci commit
 
 # 设置编译作者信息
