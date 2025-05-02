@@ -75,6 +75,12 @@ jobs:
           
           for profile in "${profile_array[@]}"; do
             echo "Building for profile: $profile"
+
+            # 替换 99-custom.sh 中的网络设置
+            sed -i "s|LAN_IP=.*|LAN_IP=${{ inputs.lan_ip }}|" "${{ github.workspace }}/files/etc/uci-default/99-custom.sh"
+            sed -i "s|LAN_NETMASK=.*|LAN_NETMASK=${{ inputs.lan_netmask }}|" "${{ github.workspace }}/files/etc/uci-default/99-custom.sh"
+            sed -i "s|LAN_GATEWAY=.*|LAN_GATEWAY=${{ inputs.lan_gateway }}|" "${{ github.workspace }}/files/etc/uci-default/99-custom.sh"
+            sed -i "s|LAN_DNS=.*|LAN_DNS=${{ inputs.lan_dns }}|" "${{ github.workspace }}/files/etc/uci-default/99-custom.sh"
             
             docker run --rm -i \
               --user root \
@@ -87,10 +93,6 @@ jobs:
               -e ENABLE_PPPOE=${{ inputs.enable_pppoe }} \
               -e PPPOE_ACCOUNT=${{ inputs.pppoe_account }} \
               -e PPPOE_PASSWORD=${{ inputs.pppoe_password }} \
-              -e LAN_IP=${{ inputs.lan_ip }} \
-              -e LAN_NETMASK=${{ inputs.lan_netmask }} \
-              -e LAN_GATEWAY=${{ inputs.lan_gateway }} \
-              -e LAN_DNS="${{ inputs.lan_dns }}" \
               immortalwrt/imagebuilder:x86-64-openwrt-24.10.1 /bin/bash /home/build/immortalwrt/build.sh
               
           done
