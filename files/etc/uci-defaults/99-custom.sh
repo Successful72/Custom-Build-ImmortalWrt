@@ -34,12 +34,12 @@ fi
 # 网络设置
 # 无论单网口还是多网口，lan接口都设置为静态IP
 uci set network.lan.proto='static'
-# 请在下面三行修改为你想要的IP地址、子网掩码和网关
+# 请在下面四行修改自定义的IP地址、子网掩码、网关和DNS
 uci set network.lan.ipaddr='200.56.72.198'
 uci set network.lan.netmask='255.255.255.0'
 uci set network.lan.gateway='200.56.72.248'
 uci set network.lan.dns='114.114.114.114 223.5.5.5'
-# 记录IP信息到日志文件
+# 记录IP信息到日志文件（可选修改）
 echo "Set static IP 192.168.100.1 at $(date)" >> $LOGFILE
 
 # DHCP设置
