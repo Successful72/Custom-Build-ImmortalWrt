@@ -90,7 +90,7 @@ jobs:
               -e LAN_IP=${{ inputs.lan_ip }} \
               -e LAN_NETMASK=${{ inputs.lan_netmask }} \
               -e LAN_GATEWAY=${{ inputs.lan_gateway }} \
-              -e LAN_DNS=${{ inputs.lan_dns }} \
+              -e LAN_DNS="${{ inputs.lan_dns }}" \
               immortalwrt/imagebuilder:x86-64-openwrt-24.10.1 /bin/bash /home/build/immortalwrt/build.sh
               
           done
