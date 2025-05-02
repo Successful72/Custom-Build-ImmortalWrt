@@ -46,7 +46,8 @@ echo "Set static IP 192.168.100.1 at $(date)" >> $LOGFILE
 # 禁用lan接口的DHCP服务
 uci set dhcp.lan.ignore='1'
 # 配置本地域名
-uci set dhcp.lan.domain='ycslan'
+uci set dhcp.dnsmasq.local='ycslan'
+uci set dhcp.dnsmasq.ddomain='ycslan'
 
 
 # 如果是多网口设备，额外配置WAN口
