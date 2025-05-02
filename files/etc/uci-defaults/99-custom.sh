@@ -7,9 +7,9 @@ echo "Starting 99-custom.sh at $(date)" >> $LOGFILE
 uci set firewall.@zone[1].input='ACCEPT'
 
 # 设置主机名映射，解决安卓原生 TV 无法联网的问题
-uci add dhcp domain
-uci set "dhcp.@domain[-1].name=time.android.com"
-uci set "dhcp.@domain[-1].ip=203.107.6.88"
+# uci add dhcp domain
+# uci set "dhcp.@domain[-1].name=time.android.com"
+# uci set "dhcp.@domain[-1].ip=203.107.6.88"
 
 
 # 计算网卡数量
@@ -46,8 +46,8 @@ echo "Set static IP 192.168.100.1 at $(date)" >> $LOGFILE
 # 禁用lan接口的DHCP服务
 uci set dhcp.lan.ignore='1'
 # 配置本地域名
-uci set dhcp.dnsmasq.local='ycslan'
-uci set dhcp.dnsmasq.ddomain='ycslan'
+uci set dhcp.@dnsmasq[0].local='/ycslan/'
+uci set dhcp.@dnsmasq[0].domain='ycslan'
 
 
 # 如果是多网口设备，额外配置WAN口
