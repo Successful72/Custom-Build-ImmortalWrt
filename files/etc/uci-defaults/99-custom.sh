@@ -11,7 +11,6 @@ uci set firewall.@zone[1].input='ACCEPT'
 # uci set "dhcp.@domain[-1].name=time.android.com"
 # uci set "dhcp.@domain[-1].ip=203.107.6.88"
 
-
 # 计算网卡数量
 count=0
 for iface in /sys/class/net/*; do
@@ -31,6 +30,8 @@ else
    . "$SETTINGS_FILE"
 fi
 
+
+
 # 网络设置
 # 无论单网口还是多网口，lan接口都设置为静态IP
 uci set network.lan.proto='static'
@@ -48,6 +49,7 @@ uci set dhcp.lan.ignore='1'
 # 配置本地域名
 uci set dhcp.@dnsmasq[0].local='/ycslan/'
 uci set dhcp.@dnsmasq[0].domain='ycslan'
+
 
 
 # 如果是多网口设备，额外配置WAN口
