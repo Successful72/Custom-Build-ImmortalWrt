@@ -41,7 +41,7 @@ uci set network.lan.netmask="${LAN_NETMASK}"  # 使用传入的 LAN_NETMASK
 uci set network.lan.gateway="${LAN_GATEWAY}"  # 使用传入的 LAN_GATEWAY
 uci set network.lan.dns="${LAN_DNS}"    # 使用传入的 LAN_DNS
 # 记录IP信息到日志文件（可选修改）
-echo "Set static IP 192.168.100.1 at $(date)" >> $LOGFILE
+echo "Set static IP ${LAN_IP} with DNS ${LAN_DNS} at $(date)" >> $LOGFILE
 
 # DHCP设置
 # 禁用lan接口的DHCP服务
