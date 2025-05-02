@@ -8,7 +8,7 @@ echo "Include Docker: $INCLUDE_DOCKER"
 echo "Create pppoe-settings"
 mkdir -p  /home/build/immortalwrt/files/etc/config
 
-# 不需要参与编译的预安装软件信息
+# 不参与编译的预安装软件信息
 # PACKAGES="$PACKAGES luci-i18n-ttyd-zh-cn"
 # PACKAGES="$PACKAGES luci-i18n-passwall-zh-cn"
 # PACKAGES="$PACKAGES luci-i18n-samba4-zh-cn"
@@ -16,6 +16,9 @@ mkdir -p  /home/build/immortalwrt/files/etc/config
 # PACKAGES="$PACKAGES luci-i18n-filebrowser-zh-cn"
 # PACKAGES="$PACKAGES luci-app-openclash"
 # PACKAGES="$PACKAGES luci-i18n-diskman-zh-cn"
+# 增加几个必备组件 方便用户安装iStore
+# PACKAGES="$PACKAGES fdisk"
+# PACKAGES="$PACKAGES script-utils"
 
 # 创建pppoe配置文件 yml传入环境变量ENABLE_PPPOE等 写入配置文件 供99-custom.sh读取
 cat << EOF > /home/build/immortalwrt/files/etc/config/pppoe-settings
@@ -29,7 +32,7 @@ cat /home/build/immortalwrt/files/etc/config/pppoe-settings
 # 输出调试信息
 echo "$(date '+%Y-%m-%d %H:%M:%S') - 开始编译..."
 
-# 定义所需安装的包列表 下列插件你都可以自行删减
+# 定义所需安装的包列表 下列插件可以自行删减
 PACKAGES=""
 PACKAGES="$PACKAGES curl"
 PACKAGES="$PACKAGES luci-i18n-firewall-zh-cn"
@@ -37,9 +40,6 @@ PACKAGES="$PACKAGES luci-app-argon-config"
 PACKAGES="$PACKAGES luci-i18n-argon-config-zh-cn"
 PACKAGES="$PACKAGES luci-i18n-opkg-zh-cn"
 PACKAGES="$PACKAGES openssh-sftp-server"
-# 增加几个必备组件 方便用户安装iStore
-PACKAGES="$PACKAGES fdisk"
-PACKAGES="$PACKAGES script-utils"
 
 # 判断是否需要编译 Docker 插件
 if [ "$INCLUDE_DOCKER" = "yes" ]; then
