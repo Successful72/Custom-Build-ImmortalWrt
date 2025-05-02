@@ -46,6 +46,7 @@ PACKAGES="$PACKAGES openssh-sftp-server"
 
 # 若有未列出的软件，前往下面的网站，自行搜索。能搜到就说明能安装。根据上面的格式增加代码即可。
 # https://mirrors.sjtug.sjtu.edu.cn/immortalwrt/releases/
+# https://downloads.immortalwrt.org/releases/packages-24.10/x86_64/packages/
 
 
 
