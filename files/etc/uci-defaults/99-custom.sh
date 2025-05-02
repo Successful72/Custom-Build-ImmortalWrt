@@ -3,6 +3,7 @@
 # Log file for debugging
 LOGFILE="/tmp/uci-defaults-log.txt"
 echo "Starting 99-custom.sh at $(date)" >> $LOGFILE
+
 # 设置默认防火墙规则，方便虚拟机首次访问 WebUI
 uci set firewall.@zone[1].input='ACCEPT'
 
