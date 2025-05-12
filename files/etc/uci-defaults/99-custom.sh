@@ -40,7 +40,7 @@ uci set network.lan.proto='static'
 uci set network.lan.ipaddr='200.56.72.245'
 uci set network.lan.netmask='255.255.255.0'
 
-# 主路由不用设置LAN口的网关和DNS
+# 主路由不用设置LAN口的网关和DNS(若有特殊需要，自行修改)
 # uci set network.lan.gateway='200.56.72.248'
 # uci set network.lan.dns='114.114.114.114 223.5.5.5'
 
@@ -60,6 +60,10 @@ uci set network.wan6.proto='dhcpv6'
 # DHCP设置
 # 禁用lan接口的DHCP服务
 uci set dhcp.lan.ignore='1' # DHCP服务由其他服务提供
+# 禁用IPv6服务
+uci set dhcp.lan.dhcpv6='disabled'
+uci set dhcp.lan.ra='disabled'
+uci set dhcp.lan.ndp='disabled'
 # 配置本地域名
 uci set dhcp.@dnsmasq[0].local='/ycslan/'
 uci set dhcp.@dnsmasq[0].domain='ycslan'
