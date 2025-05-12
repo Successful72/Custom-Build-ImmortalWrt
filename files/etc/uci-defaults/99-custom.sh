@@ -39,14 +39,27 @@ uci set network.lan.proto='static'
 # 请在下面四行修改自定义的IP地址、子网掩码、网关和DNS
 uci set network.lan.ipaddr='200.56.72.245'
 uci set network.lan.netmask='255.255.255.0'
+
+# 主路由不用设置LAN口的网关和DNS
 # uci set network.lan.gateway='200.56.72.248'
 # uci set network.lan.dns='114.114.114.114 223.5.5.5'
+
 # 记录IP信息到日志文件（可选修改）
 echo "Set static IP 200.56.72.245 at $(date)" >> $LOGFILE
 
+# 主路由WAN口设置
+# 为WAN口指定接口
+uci set network.wan.ifname='eth1'
+# WAN口IP获取方式
+uci set network.wan.proto='dhcp'
+# WAN口的IPv6接口
+uci set network.wan6.ifname='eth1'
+# WAN口的IPv6设置
+uci set network.wan6.proto='dhcpv6'
+
 # DHCP设置
 # 禁用lan接口的DHCP服务
-uci set dhcp.lan.ignore='1'
+uci set dhcp.lan.ignore='1' # DHCP服务由其他服务提供
 # 配置本地域名
 uci set dhcp.@dnsmasq[0].local='/ycslan/'
 uci set dhcp.@dnsmasq[0].domain='ycslan'
@@ -75,7 +88,7 @@ fi
 # uci delete ttyd.@ttyd[0].interface
 
 # 设置所有网口可连接 SSH
-uci set dropbear.@dropbear[0].Interface=''
+uci set dropbear.@dropbear[0].Interface='br-lan'
 
 uci commit
 
